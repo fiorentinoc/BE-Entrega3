@@ -103,7 +103,19 @@ app.get('/productos', (req, res) => {
 })
 
 app.get('/productoRandom', (req, res) => {
-    res.send('random')
+  const obtenerProductos = async() => {
+    try {
+        let arrayProductos = await productos.getAll()
+        const randomId = 1 + Math.trunc(Math.random() * arrayProductos.length) 
+        let producto = arrayProductos.filter( (prod) => prod.id == randomId)
+        res.send(producto)    
+    } 
+    catch (err) {
+        console.log(err)
+    }
+  }
+  obtenerProductos()
+    
 })
 
 const PORT = 8080
