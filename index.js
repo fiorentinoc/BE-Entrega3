@@ -103,18 +103,19 @@ app.get('/productos', (req, res) => {
 })
 
 app.get('/productoRandom', (req, res) => {
-  const obtenerProductos = async() => {
+  const obtenerProducto = async() => {
     try {
         let arrayProductos = await productos.getAll()
         const randomId = 1 + Math.trunc(Math.random() * arrayProductos.length) 
-        let producto = arrayProductos.filter( (prod) => prod.id == randomId)
+        //console.log("Id: "+ randomId)
+        let producto = await productos.getById(randomId)
         res.send(producto)    
     } 
     catch (err) {
         console.log(err)
     }
   }
-  obtenerProductos()
+  obtenerProducto()
     
 })
 
